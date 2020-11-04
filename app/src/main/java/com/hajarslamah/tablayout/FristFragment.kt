@@ -40,26 +40,22 @@ lateinit var frgTextView:TextView
          var vew =inflater.inflate(R.layout.fragment_frist, container, false)
         frgTextView=vew.findViewById(R.id.OneFragment) as TextView
 ///////////////////////to control of viewpager2 the color and text
-        if (position==0){
-            vew.setBackgroundResource(R.color.design_default_color_secondary)
-            frgTextView.setText("#This is fragment$position")
-        }
 
-       else if(position==1)
-        {
-            vew.setBackgroundResource(R.color.colorPrimaryDark)
-            frgTextView.setText("#This is fragment $position")
-        }
-
-      else  if(position==2)
-        {
-            vew.setBackgroundResource(R.color.design_default_color_error )
-            frgTextView.setText("#This is fragment $position")
-        }
-
-        return vew
-
+when(position){
+    0 ->{
+        vew.setBackgroundResource(R.color.design_default_color_secondary)
+         frgTextView.setText("#This is fragment${position!! +1}")
     }
+    1->  {
+            vew.setBackgroundResource(R.color.colorPrimaryDark)
+            frgTextView.setText("#This is fragment${position!! +1}")
+        }
+    2-> {
+        vew.setBackgroundResource(R.color.design_default_color_error )
+          frgTextView.setText("#This is fragment ${position!! +1}")
+}}
+     return vew
+ }
 
     companion object {
         /**
