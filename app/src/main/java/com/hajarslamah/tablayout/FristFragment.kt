@@ -1,15 +1,17 @@
 package com.hajarslamah.tablayout
 
+import android.graphics.Color.red
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+private const val ARG_PARAM2 = "position"
 
 /**
  * A simple [Fragment] subclass.
@@ -19,13 +21,13 @@ private const val ARG_PARAM2 = "param2"
 class FristFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
-    private var param2: String? = null
-
+    private var position: Int? = null
+lateinit var frgTextView:TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+            position = it.getInt(ARG_PARAM2)
         }
     }
 
@@ -34,7 +36,29 @@ class FristFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_frist, container, false)
+        //To One Fragment
+         var vew =inflater.inflate(R.layout.fragment_frist, container, false)
+        frgTextView=vew.findViewById(R.id.OneFragment) as TextView
+///////////////////////to control of viewpager2 the color and text
+        if (position==0){
+            vew.setBackgroundResource(R.color.design_default_color_secondary)
+            frgTextView.setText("#This is fragment$position")
+        }
+
+       else if(position==1)
+        {
+            vew.setBackgroundResource(R.color.colorPrimaryDark)
+            frgTextView.setText("#This is fragment $position")
+        }
+
+      else  if(position==2)
+        {
+            vew.setBackgroundResource(R.color.design_default_color_error )
+            frgTextView.setText("#This is fragment $position")
+        }
+
+        return vew
+
     }
 
     companion object {
@@ -48,11 +72,11 @@ class FristFragment : Fragment() {
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
+        fun newInstance(param1: String, position: Int) =
             FristFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+                    putInt(ARG_PARAM2,position)
                 }
             }
     }

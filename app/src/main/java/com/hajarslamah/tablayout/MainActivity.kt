@@ -18,23 +18,22 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        tabLayout=findViewById(R.id.tabs)
+//        tabViewPager.orientation = ViewPager2.ORIENTATION_VERTICAL
+  tabLayout=findViewById(R.id.tabs)
         tabViewPager=findViewById(R.id.pager)
-
-
-        tabViewPager.adapter = object: FragmentStateAdapter(this){
+      tabViewPager.adapter = object: FragmentStateAdapter(this){
             override fun createFragment(position: Int): Fragment {
                 return when(position){
-                    0 ->FristFragment.newInstance("first","tabs")
-                    1->ScondeFragment.newInstance("second","tabs")
-                    2->ThirdFragment.newInstance("third","tabs")
-                    else ->FristFragment.newInstance("first","tabs")
+                    // deleted the sconde and third and  add new instance from the oneFragment
+                    0 ->FristFragment.newInstance("first",position)
+                    1->FristFragment.newInstance("second",position)
+                    2->FristFragment.newInstance("third",position)
+                    else ->FristFragment.newInstance("first",position)
                 }
             }
             override fun getItemCount(): Int {
                 return 3
-
-            }
+ }
 
         }
         TabLayoutMediator(tabLayout,tabViewPager){ tab ,postion ->
@@ -56,9 +55,9 @@ class MainActivity : AppCompatActivity() {
 //                tab.setIcon(R.drawable.ic_baseline_chat_24)
         }.attach()
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-
+//that way1 of answerd
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                Toast.makeText(this@MainActivity, " This${tab?.text.toString()}", Toast.LENGTH_SHORT) .show()
+                Toast.makeText(this@MainActivity, " This is page ${tabViewPager.currentItem+1}", Toast.LENGTH_SHORT) .show()
             }
 
             override fun onTabReselected(tab: TabLayout.Tab?) {
@@ -68,7 +67,17 @@ class MainActivity : AppCompatActivity() {
             override fun onTabUnselected(tab: TabLayout.Tab?) {
                 // Handle tab unselect
             }
+
         })
+        //that way2 of answerd
+        tabViewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+               // Toast.makeText(this@MainActivity,"This is page ${position+1}",Toast.LENGTH_LONG).show()
+            }
+        })
+
+
         }
 
 
